@@ -1,0 +1,2 @@
+# smips
+Spacemesh Improvement Proposals
