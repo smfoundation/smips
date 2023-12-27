@@ -7,7 +7,6 @@ category: Standard/Meta
 type: Core/Networking/Interface/Meta
 status: Draft
 created: (fill in with today's date, YYYY-MM-DD)
-feature: (fill in with feature tracking issues once accepted)
 supersedes: (optional - fill this in if the SMIP supersedes a previous SMIP)
 extends: (optional - fill this in if the SMIP extends the design of a previous SMIP)
 ---
