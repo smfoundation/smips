@@ -35,30 +35,35 @@ The only alternative considered was not making this change and maintaining the c
 
 ## Specification
 
-TBD
+The `InitialUnlockAmount` parameter passed to the `Vault` template when a vault account is instantiated (see [this code snippet](https://github.com/spacemeshos/go-spacemesh/blob/eb55894737514b456bbd4af4a41178639a6bda15/genvm/templates/vault/vault.go#L26-L34) must be ignored when calculating the available balance in such an account.
+
+For clarity, the old algorithm was:
+
+`AVAILABLE_BALANCE := INITIAL_UNLOCK_AMOUNT + (TOTAL_AMOUNT - INITIAL_UNLOCK_AMOUNT) * (LAYER - VESTING_START) / (VESTING_END - VESTING_START)`
+
+This proposal changes the algorithm to:
+
+`AVAILABLE_BALANCE := TOTAL_AMOUNT * (LAYER - VESTING_START) / (VESTING_END - VESTING_START)`
 
 ## Rationale
 
-The rationale fleshes out the specification by describing what motivated the design and why particular design decisions were made. It should describe alternate designs that were considered and related work, e.g. how the feature is supported in other languages.
+This is the simplest possible change to effect the desired result. It doesn't change the state of any existing accounts, and the address of the existing accounts also does not change.
 
-## Backwards Compatibility *(Optional)*
+## Backwards Compatibility
 
-Does the feature introduce any breaking changes? All incompatibilities and
-consequences should be listed.
+This proposal changes the interpretation of the arguments passed to the genesis vault accounts. As long as this change is implemented well before vesting begins (one year post genesis), no special backwards-compatibility handling is required. Additionally, no new genesis vault accounts will ever be created on mainnet, so no backwards-compatibility handling is required for this account type.
 
-## Test Cases *(Optional)*
+If this proposal is implemented, in general, developers need to be aware that the `InitialUnlockAmount` vault argument is ignored and should be ignored in all Spacemesh infrastructure and applications.
 
-This section is optional for non-Core SMIPs.
+This is especially important for developers creating other networks based on the Spacemesh protocol, which in future may contain new genesis vault accounts.
 
-The Test Cases section should include expected input/output pairs, but may include a succinct set of executable tests. It should not include project build files. No new requirements may be be introduced here (meaning an implementation following only the Specification section should pass all tests here.)
-If the test suite is too large to reasonably be included inline, then consider adding it as one or more files in `../assets/smip-####/`. External links will not be allowed.
+## Test Cases
 
-## Reference Implementation *(Optional)*
+Included in reference implementation, see https://github.com/spacemeshos/go-spacemesh/compare/develop...smip-0002-remove-vault-vesting-cliff#diff-0bfccdca15d6dbcc197bfb848d43168c815a9d1dfe1dc359bfbafb72101e90f1
 
-This section is optional.
+## Reference Implementation
 
-The Reference Implementation section should include a minimal implementation that assists in understanding or implementing this specification. It should not include project build files. The reference implementation is not a replacement for the Specification section, and the proposal should still be understandable without it.
-If the reference implementation is too large to reasonably be included inline, then consider adding it as one or more files in `../assets/smip-####/`. External links will not be allowed.
+See https://github.com/spacemeshos/go-spacemesh/tree/smip-0002-remove-vault-vesting-cliff and https://github.com/spacemeshos/economics/tree/smip-0002-remove-vault-vesting-cliff
 
 ## Performance Considerations
 
@@ -66,12 +71,11 @@ There are no known performance considerations.
 
 ## Security Considerations
 
-What security implications/considerations come with implementing this feature?
-Are there any implementation-specific guidance or pitfalls?
+It's essential that all network infrastructure, applications, and stakeholders agree at all times on the actual, vested, accessible balance of every account. If there's disagreement this can lead to a chain split or worse. It's therefore critical that all running Spacemesh nodes and all infrastructure upgrade to support this change well before the first anniversary of genesis (mid July 2024).
 
-All SMIPs must contain a section that discusses the security implications/considerations relevant to the proposed change. Include information that might be important for security discussions, surfaces risks and can be used throughout the lifecycle of the proposal. For example, include security-relevant design decisions, concerns, important discussions, implementation-specific guidance and pitfalls, an outline of threats and risks and how they are being addressed. SMIP submissions missing the "Security Considerations" section will be rejected.
+Assuming that happens, the only other known potential security consideration is a bug in the implementation such as a rounding error or an integer overflow. Every possible effort has been made to prevent such errors in the provided sample implementations, and every possible effort should be made to prevent such errors through, e.g., a thorough code review process and thorough unit and system tests.
 
-## Drawbacks *(Optional)*
+## Drawbacks
 
 The best argument against this change is the argument that no aspect of Spacemesh economics should be altered under any circumstances. The author is of the opinion that this change should be made because it is beneficial for the short-term health of the Spacemesh protocol and community and because there is zero impact on long-term economics. Note that the only economic impact of this change is to slow down the increase in the circulating coin supply between years 1-4 and that it does not transfer the ownership of any existing coins or alter any existing account state.
 
