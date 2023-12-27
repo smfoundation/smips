@@ -35,7 +35,7 @@ The only alternative considered was not making this change and maintaining the c
 
 ## Specification
 
-The `InitialUnlockAmount` parameter passed to the `Vault` template when a vault account is instantiated (see [this code snippet](https://github.com/spacemeshos/go-spacemesh/blob/eb55894737514b456bbd4af4a41178639a6bda15/genvm/templates/vault/vault.go#L26-L34) must be ignored when calculating the available balance in such an account.
+The `InitialUnlockAmount` parameter passed to the `Vault` template when a vault account is instantiated (see [this code snippet](https://github.com/spacemeshos/go-spacemesh/blob/eb55894737514b456bbd4af4a41178639a6bda15/genvm/templates/vault/vault.go#L26-L34)) must be ignored when calculating the available balance in such an account.
 
 For clarity, the old algorithm was:
 
@@ -81,4 +81,4 @@ The best argument against this change is the argument that no aspect of Spacemes
 
 ## Copyright
 
-Copyright and related rights waived via [CC0](../LICENSE.md).
+Copyright and related rights waived via [CC0](../LICENSE).
