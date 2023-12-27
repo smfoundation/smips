@@ -19,7 +19,7 @@ This proposal requires a slight change to the precompile/genesis VM code in go-s
 
 It has no additional impact on and requires no support from dapp developers, miners, etc.
 
-## Stakeholders and Reviewers *(Optional)*
+## Stakeholders and Reviewers
 
 - Spacemesh core contributors (who have already reviewed and approved this proposed change)
 - Spacemesh development company investors (who have already reviewed and approved this proposed change)
