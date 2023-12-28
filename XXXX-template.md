@@ -116,4 +116,4 @@ What are some reasons we might not want to do this?
 
 ## Copyright
 
-Copyright and related rights waived via [CC0](../LICENSE.md).
+Copyright and related rights waived via [CC0](../LICENSE).
