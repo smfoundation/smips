@@ -5,7 +5,7 @@ authors:
   - Lane Rettig <lane@spacemesh.io>
 category: Standard
 type: Core
-status: Draft
+status: Review
 created: 2023-12-26
 ---
 
