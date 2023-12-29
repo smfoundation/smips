@@ -7,6 +7,7 @@ category: Standard
 type: Core
 status: Review
 created: 2023-12-26
+comments-uri: https://github.com/smfoundation/smips/discussions/2
 ---
 
 ## Abstract
