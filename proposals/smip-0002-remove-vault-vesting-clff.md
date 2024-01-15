@@ -5,7 +5,7 @@ authors:
   - Lane Rettig <lane@spacemesh.io>
 category: Standard
 type: Core
-status: Review
+status: Accepted
 created: 2023-12-26
 comments-uri: https://github.com/smfoundation/smips/discussions/2
 ---
